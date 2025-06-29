@@ -1,5 +1,6 @@
 // src/pages/ContactUs.jsx
 import React, { useState } from 'react'
+import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from 'react-icons/fa'
 
 export default function ContactUs() {
   const [form, setForm] = useState({
@@ -16,73 +17,115 @@ export default function ContactUs() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    setStatus('Thank you for reaching out. We will get back to you shortly.')
+    setStatus('Thank you! Your message has been received. Our team will get back to you shortly.')
     setForm({ name: '', email: '', message: '' })
   }
 
   return (
-    <div className="px-6 py-10 space-y-8">
-      <h1 className="text-4xl font-bold text-blue-900 underline mb-6">Contact Us</h1>
+    <div className="bg-gray-50 min-h-screen py-12 px-6">
+      {/* Header */}
+      <div className="max-w-6xl mx-auto mb-4">
+        <h1 className="text-4xl font-bold text-blue-950 mb-2">Contact Us</h1>
+        <p className="text-lg text-slate-700 font-semibold">
+          We'd love to hear from you. Reach out to us for queries, suggestions, or support.
+        </p>
+      </div>
 
-      <section className="text-lg space-y-4">
-        <p>
-          <strong>National Informatics Centre (NIC)</strong><br />
-          Ministry of Electronics and Information Technology, Government of India<br />
-          A-Block, CGO Complex, Lodhi Road, New Delhi - 110003
-        </p>
-        <p>
-          <strong>Email:</strong> support@nic.in
-        </p>
-        <p>
-          <strong>Phone:</strong> +91-1234567890
-        </p>
-      </section>
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+        {/* Contact Details */}
+        <div className="bg-white shadow-xl rounded-lg p-8 space-y-6 border border-gray-200">
+          <h2 className="text-2xl font-semibold text-blue-950 mb-4">Office Contact Information</h2>
+          <ul className="space-y-6 text-gray-700 text-base">
+            <li className="flex items-start">
+              <FaMapMarkerAlt className="text-slate-700 mt-1 mr-3 text-lg" />
+              <div>
+                <p className="font-semibold">Head Office</p>
+                <p>National Informatics Centre (NIC)</p>
+                <p>Ministry of Electronics & IT, Government of India</p>
+                <p>A-Block, CGO Complex, Lodhi Road, New Delhi - 110003</p>
+              </div>
+            </li>
+            <li className="flex items-center">
+              <FaEnvelope className="text-slate-700 mr-3 text-lg" />
+              <a href="mailto:support@nic.in" className="text-slate-700 hover:underline">
+                support@nic.in
+              </a>
+            </li>
+            <li className="flex items-center">
+              <FaPhoneAlt className="text-slate-700 mr-3 text-lg" />
+              <a href="tel:+911234567890" className="text-slate-700 hover:underline">
+                +91‑12345‑67890
+              </a>
+            </li>
+          </ul>
+        </div>
 
-      <section className="bg-gray-100 p-6 rounded-md shadow-md max-w-2xl">
-        <h2 className="text-2xl font-semibold text-blue-800 mb-4">Send us a message</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Your Name</label>
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              className="w-full border border-gray-400 rounded px-3 py-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block mb-1 font-medium">Your Email</label>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              className="w-full border border-gray-400 rounded px-3 py-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block mb-1 font-medium">Your Message</label>
-            <textarea
-              name="message"
-              value={form.message}
-              onChange={handleChange}
-              className="w-full border border-gray-400 rounded px-3 py-2"
-              rows="4"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-800 text-white font-semibold px-6 py-2 rounded hover:bg-blue-900"
-          >
-            Submit
-          </button>
-        </form>
-        {status && <p className="mt-4 text-green-600 font-medium">{status}</p>}
-      </section>
+        {/* Contact Form */}
+        <div className="bg-white shadow-xl rounded-lg p-8 border border-gray-200">
+          <h2 className="text-2xl font-semibold text-blue-950 mb-4">Send Us a Message</h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-1">
+                Full Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                value={form.name}
+                onChange={handleChange}
+                required
+                placeholder="Your full name"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-1">
+                Email Address
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                placeholder="Your email"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-sm font-semibold text-slate-700 mb-1">
+                Your Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                value={form.message}
+                onChange={handleChange}
+                required
+                placeholder="Write your message here..."
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-blue-950 text-white font-semibold py-3 rounded-lg hover:bg-blue-900 transition duration-150"
+            >
+              Submit
+            </button>
+
+            {status && (
+              <p className="mt-4 text-green-600 text-sm font-medium text-center">
+                {status}
+              </p>
+            )}
+          </form>
+        </div>
+      </div>
     </div>
   )
 }

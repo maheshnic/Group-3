@@ -32,7 +32,7 @@ export default function Navbar () {
                     key={to}
                     to={to}
                     className={({isActive}) =>
-                        isActive ? 'hover:underline text-lg font-semibold bg-blue-900' : 'hover:underline text-lg font-semibold'
+                        isActive ? 'text-lg font-semibold bg-blue-900' : 'text-lg font-semibold'
                     }
                 >
                     <div className="border-x-1 py-4 px-13 hover:bg-blue-900 border-gray-700">
