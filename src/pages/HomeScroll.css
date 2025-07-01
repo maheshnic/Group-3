@@ -1,0 +1,20 @@
+.whats-new-wrapper {
+  height: 24rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.whats-new-list {
+  display: flex;
+  flex-direction: column;
+  animation: scroll-up 25s linear infinite;
+}
+
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}

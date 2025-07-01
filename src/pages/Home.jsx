@@ -1,5 +1,6 @@
 // src/pages/Home.jsx
 import React, { useState, useEffect, useRef } from 'react'
+import './HomeScroll.css'
 
 const carouselImages = [
   '/images/home1.jpg',
@@ -55,7 +56,7 @@ export default function Home() {
 
   return (
     <div className="space-y-12">
-      <h1 className="text-6xl font-bold text-blue-950">Welcome to the Website</h1>
+      <h1 className="text-6xl font-bold text-sky-950">Welcome to the Website</h1>
       <div className="flex space-x-10">
         {/* —— Carousel —— */}
         <div className="relative overflow-hidden rounded-lg shadow-lg w-3/4">
@@ -66,32 +67,25 @@ export default function Home() {
           />
           <button
             onClick={prev}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-600 hover:bg-gray-800 ease-in-out duration-75 bg-opacity-50 text-white text-4xl px-1 pb-1 rounded-full"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 cursor-pointer bg-gray-600 hover:bg-gray-800 ease-in-out duration-75 bg-opacity-50 text-white text-4xl px-1 pb-1 rounded-full"
           >‹</button>
           <button
             onClick={next}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-600 hover:bg-gray-800 ease-in-out duration-75 bg-opacity-50 text-white text-4xl px-1 pb-1 rounded-full"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer bg-gray-600 hover:bg-gray-800 ease-in-out duration-75 bg-opacity-50 text-white text-4xl px-1 pb-1 rounded-full"
           >›</button>
         </div>
 
         {/* —— What's New —— */}
         <div className="mt-6 md:mt-0 w-full md:w-1/4">
-          <div className="bg-slate-800 py-2 font-semibold pl-3 mb-3 rounded-lg">
+          <div className="bg-sky-900 py-2 font-semibold pl-3 mb-3 rounded-lg">
             <h2 className="text-3xl text-white">What’s New</h2>
           </div>
-          <div className="h-100 overflow-y-auto border rounded p-4 bg-slate-700">
-            <ul className="space-y-5">
-              {whatsNew.map((item, i) => (
-                <div className="bg-slate-100 mx-2 text-black hover:text-blue-700 hover:underline hover:scale-105 ease-in-out duration-150 rounded-md py-1 pl-1">
-                  <li key={i}>
-                    <a
-                      href={item.href}
-                      className="p-1 rounded-md"
-                    >
-                      {item.text}
-                  </a>
+          <div className="whats-new-wrapper bg-sky-800 border rounded p-3">
+            <ul className="whats-new-list">
+              {whatsNew.concat(whatsNew).map((item, i) => (
+                <li key={i} className="mb-5 bg-slate-200 mx-2 text-sky-800 font-semibold hover:text-blue-700 hover:underline rounded-md py-1 pl-2">
+                  <a href={item.href}>{item.text}</a>
                 </li>
-                </div>
               ))}
             </ul>
           </div>
