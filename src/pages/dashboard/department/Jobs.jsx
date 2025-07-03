@@ -261,7 +261,7 @@ function ApplicantsPanel({ applicants, setApplicants, jobs }) {
         <table className="w-full text-sm">
           <thead className="bg-slate-200">
             <tr>
-              {['ID','Name','Job','Status','Action'].map(h => (
+              {['ID','Name','Post Applied','Status','Action'].map(h => (
                 <th key={h} className="px-4 py-2 text-lg font-semibold text-left text-sky-900">
                   {h}
                 </th>

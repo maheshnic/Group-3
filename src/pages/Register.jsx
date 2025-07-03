@@ -118,6 +118,7 @@ export default function Register() {
               value={form.isResident}
               onChange={handleChange}
               options={['Yes', 'No']}
+              required
             />
           </div>
         </section>
@@ -135,7 +136,8 @@ export default function Register() {
                 value={form.prtcNumber}
                 onChange={handleChange}
                 placeholder="PRTC/1234/12345"
-                pattern="^[A-Za-z0-9/]+$"
+                pattern="^PRTC\/\d{4}\/\d{5}$"
+                title="Must be of the form PRTC/1234/12345"
                 maxLength="50"
                 required
               />
@@ -185,9 +187,9 @@ export default function Register() {
           <h2 className="text-2xl font-semibold text-sky-900 bg-gray-200 p-3 rounded-md mb-4">Personal Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Select label="Title *" name="title" value={form.title} onChange={handleChange} options={TITLES} required />
-            <Input label="Full Name *" name="fullName" value={form.fullName} onChange={handleChange} maxLength="100" required />
-            <Input label="Father's Name" name="fatherName" value={form.fatherName} onChange={handleChange} maxLength="100" />
-            <Input label="Mother's Name" name="motherName" value={form.motherName} onChange={handleChange} maxLength="100" />
+            <Input label="Full Name *" name="fullName" placeholder='Enter your full name' value={form.fullName} onChange={handleChange} maxLength="100" required />
+            <Input label="Father's Name" name="fatherName" placeholder="Enter your father's name" value={form.fatherName} onChange={handleChange} maxLength="100" />
+            <Input label="Mother's Name" name="motherName" placeholder="Enter your mother's name" value={form.motherName} onChange={handleChange} maxLength="100" />
             <Input
               label="Date of Birth *"
               name="dateOfBirth"
@@ -224,7 +226,7 @@ export default function Register() {
               value={form.mobile}
               onChange={handleChange}
               pattern="\d{10}"
-              placeholder="10‑digit mobile"
+              placeholder="10-digit mobile number"
               required
             />
             <Input
@@ -261,15 +263,17 @@ export default function Register() {
                   type={showPwd ? 'text' : 'password'}
                   value={form.password}
                   onChange={handleChange}
+                  pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#\-\_\$\%\&])[A-Za-z\d@#\-\_\$\%\&]{8,}"
+                  title="Must be ≥8 characters, include upper & lower case letters, a number, and one of @ # - _ $ % &"
+                  placeholder="At least 8 characters, including A-Z, a-z, 0-9, and @#-_$%&"
                   minLength="8"
-                  placeholder="At least 8 characters"
                   required
                   className="w-full border-2 border-gray-300 hover:border-gray-400 transition rounded-md px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPwd(p => !p)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  className="absolute right-3 top-1/2 transform cursor-pointer -translate-y-1/2 text-gray-500"
                 >
                   {showPwd ? <FaEyeSlash /> : <FaEye />}
                 </button>
@@ -283,6 +287,9 @@ export default function Register() {
                   type={showConfirm ? 'text' : 'password'}
                   value={form.confirmPassword}
                   onChange={handleChange}
+                  pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#\-\_\$\%\&])[A-Za-z\d@#\-\_\$\%\&]{8,}"
+                  title="Must match the same rules as Password"
+                  placeholder='Re-enter password'
                   minLength="8"
                   required
                   className="w-full border-2 border-gray-300 hover:border-gray-400 transition rounded-md px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-600"
@@ -290,7 +297,7 @@ export default function Register() {
                 <button
                   type="button"
                   onClick={() => setShowConfirm(c => !c)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  className="absolute right-3 top-1/2 transform cursor-pointer -translate-y-1/2 text-gray-500"
                 >
                   {showConfirm ? <FaEyeSlash /> : <FaEye />}
                 </button>
@@ -348,12 +355,13 @@ function Input({
   type = 'text',
   placeholder = '',
   pattern,
+  title,
   maxLength,
   minLength,
   required = false,
 }) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col self-start">
       <label htmlFor={name} className="font-semibold mb-1">
         {label}
       </label>
@@ -365,6 +373,7 @@ function Input({
         onChange={onChange}
         placeholder={placeholder}
         pattern={pattern}
+        title={title}
         maxLength={maxLength}
         minLength={minLength}
         required={required}

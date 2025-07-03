@@ -30,28 +30,48 @@ export default function Navbar () {
                 <h1 className="text-6xl font-bold font-serif -ml-6 cursor-default">National Informatics Centre</h1>
             </div>
             <div className="flex h-24 items-center min-w-1/3 space-x-8 justify-end pr-10 ">
-                <button className="bg-black text-white rounded-md p-0.5 text-3xl cursor-pointer hover:text-blue-800 hover:bg-white hover:scale-125 ease-in-out duration-200">
+                <a className="bg-black text-white rounded-md p-0.5 text-3xl cursor-pointer hover:text-blue-800 hover:bg-white hover:scale-125 ease-in-out duration-200"
+                    href='https://www.linkedin.com'
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
                     <FaLinkedin/>
-                </button>
-                <button className="p-0.5 border-3 text-2xl rounded-md hover:text-sky-700 hover:border-0 hover:scale-110 hover:text-3xl cursor-pointer max-w-8 ease-in-out duration-100">
+                </a>
+                <a className="p-0.5 border-3 text-2xl rounded-md hover:text-sky-700 hover:border-0 hover:scale-110 hover:text-3xl cursor-pointer max-w-8 ease-in-out duration-100"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href='https://twitter.com'
+                >
                     <FaTwitter/>
-                </button>
-                <button className="text-3xl text-white bg-black rounded-2xl p-0.5 hover:text-blue-600 hover:bg-white hover:scale-125 transition ease-in-out cursor-pointer duration-100">
+                </a>
+                <a className="text-3xl text-white bg-black rounded-2xl p-0.5 hover:text-blue-600 hover:bg-white hover:scale-125 transition ease-in-out cursor-pointer duration-100"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href='https://www.facebook.com'
+                >
                     <FaFacebook/>
-                </button>
-                <button className="text-4xl text-black p-0.5 cursor-pointer hover:text-fuchsia-700 hover:scale-110 ease-in-out transition">
+                </a>
+                <a className="text-4xl text-black p-0.5 cursor-pointer hover:text-fuchsia-700 hover:scale-110 ease-in-out transition"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href='https://www.instagram.com'
+                >
                     <FaInstagram/>
-                </button>
-                <button className="text-3xl border-2 px-0.5 rounded-lg cursor-pointer hover:text-red-600 hover:border-0 hover:scale-125 w-10 hover:text-4xl ease-in-out transition">
+                </a>
+                <a className="text-3xl border-2 px-0.5 rounded-lg cursor-pointer hover:text-red-600 hover:border-0 hover:scale-125 w-10 hover:text-4xl ease-in-out transition"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href='https://www.youtube.com'
+                >
                     <FaYoutube/>
-                </button>
+                </a>
             </div>
         </div>
-        <nav className="bg-blue-950 text-white flex items-center px-6 h-16">
+        <nav className="bg-blue-950 text-white flex justify-center items-center px-6 h-16">
 
 
             {/*Links*/}
-            <div className="flex ml-20">
+            <div className="flex">
                 {links.map(({ to, label }) => (
                     <NavLink
                         key={to}
