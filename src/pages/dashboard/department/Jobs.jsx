@@ -45,7 +45,7 @@ const [applicants, setApplicants] = useState([
             onClick={() => setActiveTab(tab)}
             className={`flex-1 py-1 text-4xl text-center font-semibold cursor-pointer transition ease-in-out duration-300
               ${activeTab === tab
-                ? 'text-blue-800 bg-white border-b-6 rounded-xl'
+                ? 'text-sky-700 bg-white border-b-6 rounded-xl'
                 : 'text-slate-700 hover:underline border-x-1 border-gray-100'}`}
           >
             {tab}
@@ -196,14 +196,14 @@ function ManageJobsPanel({ jobs, setJobs }) {
                   ))
                 )}
 
-                <td className="px-4 py-2 space-x-2">
+                <td className="px-4 py-2 space-x-4 space-y-2 flex">
                   {editingId === job.id ? (
                     <>
                       <button onClick={saveEdit}
-                        className="text-green-600 cursor-pointer hover:underline"
+                        className="text-green-600 pl-3 cursor-pointer hover:underline"
                       >Save</button>
                       <button onClick={()=>setEditingId(null)}
-                        className="text-gray-600 cursor-pointer hover:underline"
+                        className="text-gray-600 pb-2 cursor-pointer hover:underline"
                       >Cancel</button>
                     </>
                   ) : (
@@ -213,7 +213,7 @@ function ManageJobsPanel({ jobs, setJobs }) {
                         <FaPencilAlt className="mr-1"/>Edit
                       </button>
                       <button onClick={()=>deleteJob(job.id)}
-                        className="text-red-600 hover:text-red-800 hover:underline cursor-pointer flex items-center">
+                        className="text-red-600 hover:text-red-800 pb-2 hover:underline cursor-pointer flex items-center">
                         <FaTrash className="mr-1"/>Delete
                       </button>
                     </>

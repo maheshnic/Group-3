@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { FaQuestionCircle, FaSearch } from 'react-icons/fa';
 
-const topics = [
-  {
+const topics = [{
     title: 'General Questions',
     faqs: [
       { q: 'What is this website for?', a: 'This website serves as an official platform where users can access detailed information about services, announcements, recruitment openings, and various procedures offered by the organization. It provides a central hub for updates, guidelines, and contact details.' },
@@ -46,24 +45,31 @@ const topics = [
       { q: 'How to contact support?', a: 'You can reach our support team through the Helpdesk section. Fill out the form with your query and our team will get back to you promptly.' },
       { q: 'How to report a bug?', a: 'Use the feedback or Helpdesk form to provide details about the issue. Include screenshots or error messages to help our technical team resolve it quickly.' }
     ]
-  }
-];
+  }];
 
 export default function FAQs() {
   const [search, setSearch] = useState('');
+  const [expanded, setExpanded] = useState({});
+
+  const toggleExpand = (index) => {
+    setExpanded((prev) => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
 
   return (
-    <div className="max-w-6xl mx-auto bg-gray-100 px-5 py-1 rounded-2xl">
-      <h1 className="text-5xl text-sky-900 font-bold text-center my-6">Frequently Asked Questions</h1>
+    <div className="max-w-7xl mx-auto bg-gray-100 px-5 py-4 rounded-xl">
+      <h1 className="text-4xl text-sky-900 font-bold text-center mb-6">Frequently Asked Questions</h1>
 
-      <div className="flex items-center border-2 hover:border-gray-400 transition border-gray-300 rounded overflow-hidden mb-6 bg-white shadow-sm">
-        <FaSearch className="text-gray-500 ml-3" />
+      <div className="flex items-center border border-gray-300 rounded-md overflow-hidden mb-5 bg-white shadow-sm">
+        <FaSearch className="text-gray-500 ml-3 w-5 h-5" />
         <input
           type="text"
           placeholder="Search FAQs..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full p-2"
+          className="w-full p-2 text-base focus:outline-none"
         />
       </div>
 
@@ -73,20 +79,31 @@ export default function FAQs() {
         );
         if (filteredFaqs.length === 0) return null;
 
+        const showAll = expanded[index];
+        const visibleFaqs = showAll ? filteredFaqs : filteredFaqs.slice(0, 2);
+
         return (
-          <div key={index} className="bg-white border-l-4 border-blue-400 rounded shadow p-6 mb-6">
-            <h2 className="text-3xl p-2 text-sky-900 rounded-lg bg-slate-200 font-semibold mb-4">{topic.title}</h2>
-            <div className="space-y-4">
-              {filteredFaqs.map((faq, i) => (
-                <div key={i} className="bg-gray-50 p-4 rounded border border-blue-200 flex items-start gap-2">
+          <div key={index} className="bg-white border-l-4 border-blue-400 rounded shadow-sm p-5 mb-5">
+            <h2 className="text-2xl p-2 text-sky-900 bg-slate-100 rounded font-semibold mb-3">{topic.title}</h2>
+            <div className="space-y-3 max-h-[320px] overflow-auto pr-1">
+              {visibleFaqs.map((faq, i) => (
+                <div key={i} className="bg-gray-50 p-4 rounded border border-blue-100 flex items-start gap-3">
                   <FaQuestionCircle className="text-blue-400 w-5 h-5 mt-1" />
                   <div>
                     <div className="font-semibold text-lg mb-1">{faq.q}</div>
-                    <div className="text-gray-700 text-sm font-medium">{faq.a}</div>
+                    <div className="text-gray-700 text-base">{faq.a}</div>
                   </div>
                 </div>
               ))}
             </div>
+            {filteredFaqs.length > 2 && (
+              <button
+                className="text-blue-600 text-sm font-medium mt-3 cursor-pointer hover:underline"
+                onClick={() => toggleExpand(index)}
+              >
+                {showAll ? 'Show Less' : 'Show More'}
+              </button>
+            )}
           </div>
         );
       })}
