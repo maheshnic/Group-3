@@ -1,39 +1,21 @@
 // src/pages/Jobs.jsx
-import React, { useState, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { FaPlus, FaPencilAlt, FaTrash, FaFilter, FaUsers } from 'react-icons/fa'
+import * as api from '../../../api'
 
 export default function Jobs() {
-  const tabs = ['Create Job', 'Manage Jobs', 'Applicants']
-  const [activeTab, setActiveTab] = useState(tabs[0])
+  const tabs = ['Create Job', 'Manage Jobs', 'Applicants'];
+  const [activeTab, setActiveTab] = useState(tabs[0]);
 
 
-const [jobs, setJobs] = useState([
-  { id: 'J001', title: 'Software Engineer', department: 'IT', type: 'Full-Time', location: 'Agartala' },
-  { id: 'J002', title: 'Business Analyst', department: 'Finance', type: 'Part-Time', location: 'Agartala' },
-  { id: 'J003', title: 'System Admin', department: 'IT', type: 'Full-Time', location: 'Kumarghat' },
-  { id: 'J004', title: 'Data Scientist', department: 'Planning', type: 'Contract', location: 'Agartala' },
-  { id: 'J005', title: 'Support Executive', department: 'Public Grievance', type: 'Part-Time', location: 'Udaipur' },
-  { id: 'J006', title: 'Cybersecurity Officer', department: 'IT', type: 'Full-Time', location: 'Agartala' },
-  { id: 'J007', title: 'Civil Engineer', department: 'PWD', type: 'Contract', location: 'Dharmanagar' },
-  { id: 'J008', title: 'Network Technician', department: 'IT', type: 'Full-Time', location: 'Teliamura' },
-  { id: 'J009', title: 'Accounts Officer', department: 'Finance', type: 'Full-Time', location: 'Agartala' },
-  { id: 'J010', title: 'GIS Analyst', department: 'Urban Development', type: 'Part-Time', location: 'Agartala' },
-])
+const [jobs, setJobs] = useState([]);
 
-const [applicants, setApplicants] = useState([
-  { id: 'C001', name: 'Alice Sen', jobId: 'J001', status: 'Pending' },
-  { id: 'C002', name: 'Bob Das', jobId: 'J002', status: 'Pending' },
-  { id: 'C003', name: 'Chitra Roy', jobId: 'J003', status: 'Shortlisted' },
-  { id: 'C004', name: 'Deepak Nath', jobId: 'J004', status: 'Rejected' },
-  { id: 'C005', name: 'Elina Paul', jobId: 'J005', status: 'Pending' },
-  { id: 'C006', name: 'Farhan Ali', jobId: 'J006', status: 'Pending' },
-  { id: 'C007', name: 'Gita Saha', jobId: 'J007', status: 'Shortlisted' },
-  { id: 'C008', name: 'Harshit Roy', jobId: 'J008', status: 'Pending' },
-  { id: 'C009', name: 'Ishika Dey', jobId: 'J009', status: 'Rejected' },
-  { id: 'C010', name: 'Jiten Sarkar', jobId: 'J010', status: 'Pending' },
-  { id: 'C011', name: 'Kritika Laskar', jobId: 'J002', status: 'Pending' },
-  { id: 'C012', name: 'Lalit Majumdar', jobId: 'J006', status: 'Shortlisted' },
-])
+const [applicants, setApplicants] = useState([]);
+
+useEffect(() => {
+  api.getJobs().then(r => setJobs(r.data));
+  api.getApplicants().then(r => setApplicants(r.data));
+}, []);
 
   return (
     <div className="space-y-8">
@@ -71,25 +53,27 @@ const [applicants, setApplicants] = useState([
 // Create Job
 function CreateJobPanel({ jobs, setJobs }) {
   const [form, setForm] = useState({
-    id: '', title: '', department: '', type: '', location: ''
-  })
-  const [status, setStatus] = useState('')
+    jobId: '', title: '', department: '', type: '', location: ''
+  });
+  const [status, setStatus] = useState('');
 
   const handleChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    setForm({ ...form, [e.target.name]: e.target.value });
   }
 
   const handleSubmit = e => {
-    e.preventDefault()
-    const missing = Object.entries(form).filter(([,v]) => !v)
-    if (missing.length) {
-      setStatus('Please fill all fields.')
-      return
+    e.preventDefault();
+    const missing = Object.values(form).some(v=>!v);
+    if (missing) {
+      setStatus('Please fill all fields.');
+      return;
     }
-    setJobs([...jobs, form])
-    setStatus(`Job ${form.id} created!`)
-    setForm({ id:'',title:'',department:'',type:'',location:'' })
-  }
+    api.createJob(form).then(r => {
+      setJobs([...jobs, r.data]);
+      setStatus(`Job ${r.data.jobId} created!`);
+      setForm({ jobId:'', title:'', department:'', type:'', location:'' });
+    });
+  };
 
   return (
     <div className="bg-gray-200 px-3 py-6 rounded-xl">
@@ -97,17 +81,14 @@ function CreateJobPanel({ jobs, setJobs }) {
         <h3 className="text-2xl text-sky-900 bg-slate-300 rounded-lg font-semibold py-1 pl-3">Create New Job</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[
-            ['Job ID','id','text'],
-            ['Title','title','text'],
-            ['Department','department','text'],
-            ['Type','type','text'],
-            ['Location','location','text'],
-          ].map(([label,name,type]) => (
+            ['Job ID','jobId'],['Title','title'],
+            ['Department','department'],['Type','type'],
+            ['Location','location']
+          ].map(([label,name]) => (
             <div key={name} className="flex flex-col">
               <label className="font-semibold mb-1">{label}</label>
               <input
                 name={name}
-                type={type}
                 value={form[name]}
                 onChange={handleChange}
                 className="border-2 border-gray-300 hover:border-gray-400 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-600"
@@ -129,31 +110,37 @@ function CreateJobPanel({ jobs, setJobs }) {
 
 // Manage Jobs
 function ManageJobsPanel({ jobs, setJobs }) {
-  const [search, setSearch] = useState('')
-  const [editingId, setEditingId] = useState(null)
-  const [editForm, setEditForm] = useState({})
+  const [search, setSearch] = useState('');
+  const [editingId, setEditingId] = useState(null);
+  const [editForm, setEditForm] = useState({});
 
   
   const filtered = useMemo(() =>
     jobs.filter(j =>
-      j.id.includes(search) ||
+      j.jobId.includes(search) ||
       j.title.toLowerCase().includes(search.toLowerCase()) ||
       j.department.toLowerCase().includes(search.toLowerCase())
     )
-  , [jobs, search])
+  , [jobs, search]);
 
   const startEdit = job => {
-    setEditingId(job.id)
-    setEditForm({ ...job })
-  }
+    setEditingId(job.jobId);
+    setEditForm({ ...job });
+  };
+
   const saveEdit = () => {
-    setJobs(jobs.map(j => j.id === editingId ? editForm : j))
-    setEditingId(null)
-  }
+    api.updateJob(editForm).then(r => {
+      setJobs(jobs.map(j => j.jobId===r.data.jobId ? r.data : j));
+      setEditingId(null);
+    });
+  };
+
   const deleteJob = id => {
-    if (!window.confirm(`Delete job ${id}?`)) return
-    setJobs(jobs.filter(j => j.id !== id))
-  }
+    if (!window.confirm(`Delete job ${id}?`)) return;
+    api.deleteJob(id).then(() => {
+      setJobs(jobs.filter(j => j.jobId !== id));
+    });
+  };
 
   return (
     <div className="space-y-4">
@@ -178,26 +165,24 @@ function ManageJobsPanel({ jobs, setJobs }) {
           </thead>
           <tbody className="">
             {filtered.map(job => (
-              <tr key={job.id} className="hover:bg-slate-100 font-semibold">
-                {editingId === job.id ? (
-                  
-                  ['id','title','department','type','location'].map(key => (
+              <tr key={job.jobId} className="hover:bg-slate-100 font-semibold">
+                {editingId===job.jobId
+                  ? ['jobId','title','department','type','location'].map(key => (
                     <td key={key} className="px-2 py-1">
                       <input
                         value={editForm[key]}
-                        onChange={e => setEditForm({ ...editForm, [key]: e.target.value })}
-                        className="w-full border-2 border-gray-300 hover:border-gray-400 rounded-lg px-2 py-1 focus:ring-2 focus:ring-blue-200"
+                        onChange={e=>setEditForm({...editForm,[key]:e.target.value})}
+                        className="w-full border-2 border-gray-300 rounded-lg px-2 py-1 focus:ring-2 focus:ring-blue-200"
                       />
                     </td>
                   ))
-                ) : (
-                  ['id','title','department','type','location'].map(key => (
+                  : ['jobId','title','department','type','location'].map(key => (
                     <td key={key} className="px-4 py-2">{job[key]}</td>
                   ))
-                )}
+                }
 
                 <td className="px-4 py-2 space-x-4 space-y-2 flex">
-                  {editingId === job.id ? (
+                  {editingId === job.jobId ? (
                     <>
                       <button onClick={saveEdit}
                         className="text-green-600 pl-3 cursor-pointer hover:underline"
@@ -212,7 +197,7 @@ function ManageJobsPanel({ jobs, setJobs }) {
                         className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer flex items-center">
                         <FaPencilAlt className="mr-1"/>Edit
                       </button>
-                      <button onClick={()=>deleteJob(job.id)}
+                      <button onClick={()=>deleteJob(job.jobId)}
                         className="text-red-600 hover:text-red-800 pb-2 hover:underline cursor-pointer flex items-center">
                         <FaTrash className="mr-1"/>Delete
                       </button>
@@ -234,12 +219,15 @@ function ManageJobsPanel({ jobs, setJobs }) {
 
 // Applicants
 function ApplicantsPanel({ applicants, setApplicants, jobs }) {
-  const [view, setView] = useState('pending')
-  const pending = applicants.filter(a => a.status==='Pending')
-  const list = view==='pending' ? pending : applicants
+  const [view, setView] = useState('pending');
+  const pending = applicants.filter(a => a.status==='Pending');
+  const list = view==='pending' ? pending : applicants;
 
-  const toggleStatus = (id, status) =>
-    setApplicants(applicants.map(a => a.id===id ? {...a, status} : a))
+  const toggleStatus = (id, status) => {
+    api.updateStatus(id, status).then(r => {
+      setApplicants(applicants.map(a => a.id===id ? r.data : a));
+    });
+  };
 
   return (
     <div className="space-y-4">
@@ -270,12 +258,12 @@ function ApplicantsPanel({ applicants, setApplicants, jobs }) {
           </thead>
           <tbody>
             {list.map(a => {
-              const job = jobs.find(j=>j.id===a.jobId)
+              const job = jobs.find(j=>j.jobId===a.postApplied);
               return (
                 <tr key={a.id} className="hover:bg-slate-100">
                   <td className="px-4 py-2 font-semibold cursor-default">{a.id}</td>
                   <td className="px-4 py-2 font-semibold cursor-default">{a.name}</td>
-                  <td className="px-4 py-2 font-semibold cursor-default">{job?.title||a.jobId}</td>
+                  <td className="px-4 py-2 font-semibold cursor-default">{job?.title||a.postApplied}</td>
                   <td className="px-4 py-2 font-semibold cursor-default">
                     <span className={`
                       inline-block px-2 py-1 text-sm rounded-full 
