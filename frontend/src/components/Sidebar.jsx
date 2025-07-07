@@ -1,4 +1,7 @@
 // src/components/Sidebar.jsx
+
+//This is the sidebar for the department part
+
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 

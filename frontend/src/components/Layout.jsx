@@ -1,3 +1,6 @@
+
+//This file defines the layout for the pages
+
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'

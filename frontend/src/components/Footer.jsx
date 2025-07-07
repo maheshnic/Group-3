@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Footer() {
-  // map link text to routes
+  // links to the pages
   const links = [
     { text: 'Privacy Policy', to: '/terms' },
     { text: 'Terms of Use',    to: '/terms' },

@@ -1,6 +1,10 @@
 import React from "react"
 import { Routes, Route } from "react-router-dom"
+
+
 import Layout from "./components/Layout"
+
+
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
@@ -9,6 +13,8 @@ import ContactUs from "./pages/ContactUs"
 import ListCandidate from "./pages/ListCandidate"
 import FAQs from "./pages/FAQs"
 import Terms from "./pages/Terms"
+
+
 import DepartmentDashboard from "./pages/dashboard/department/DepartmentDashboard"
 import Profile from "./pages/dashboard/department/Profile"
 import Jobs from "./pages/dashboard/department/Jobs"

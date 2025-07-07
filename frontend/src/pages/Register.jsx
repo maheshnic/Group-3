@@ -37,12 +37,14 @@ export default function Register() {
   const [status, setStatus] = useState('')
   const [captcha, setCaptcha] = useState('')
 
-  
+
+  //This generates the captcha
   const genCaptcha = () =>
     Math.random().toString(36).slice(-6).toUpperCase()
   useEffect(() => {
     setCaptcha(genCaptcha())
   }, [])
+
 
   const handleChange = e => {
     const { name, value, files } = e.target
@@ -61,11 +63,14 @@ export default function Register() {
 
   const handleSubmit = e => {
     e.preventDefault()
+
+    //Checks for password mismatch
     if (form.password !== form.confirmPassword) {
       setStatus(' Passwords do not match')
       return
     }
 
+    //Checks for captcha mismatch
     if (form.captchaInput.toUpperCase() !== captcha) {
       setStatus(' Captcha does not match')
       return
@@ -74,6 +79,7 @@ export default function Register() {
     console.log('Registration data:', form)
     setStatus(' Registration successful!')
 
+    //This resets the form after submission
     setForm({
       isResident: '',
       prtcNumber: '',
@@ -101,14 +107,16 @@ export default function Register() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 bg-gray-100 rounded-2xl">
-      <h1 className="text-4xl font-bold text-sky-900 mb-4">User Registration</h1>
+      <h1 className="text-4xl font-bold text-sky-900 mb-4">
+        User Registration
+      </h1>
       <p className="text-gray-700 mb-8">
         Please complete all required fields marked with <span className="text-black">*</span>.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-8 bg-white p-8 shadow-lg rounded-lg">
 
-        {/* 1. General */}
+        {/* 1. General section*/}
         <section>
           <h2 className="text-2xl font-semibold text-sky-900 bg-gray-200 p-3 rounded-md mb-4">General</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -123,7 +131,7 @@ export default function Register() {
           </div>
         </section>
 
-        {/* 1a. Tripura Residence Detail */}
+        {/* 1a. Tripura Residence Detail section */}
         {form.isResident === 'Yes' && (
           <section>
             <h2 className="text-xl text-sky-900 font-semibold mb-3 bg-gray-200 p-3 rounded-md">
@@ -182,7 +190,7 @@ export default function Register() {
           </section>
         )}
 
-        {/* 2. Personal Information */}
+        {/* 2. Personal Information section */}
         <section>
           <h2 className="text-2xl font-semibold text-sky-900 bg-gray-200 p-3 rounded-md mb-4">Personal Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -215,7 +223,7 @@ export default function Register() {
           </div>
         </section>
 
-        {/* 3. Contact Details */}
+        {/* 3. Contact Details section */}
         <section>
           <h2 className="text-2xl font-semibold text-sky-900 bg-gray-200 p-3 rounded-md mb-4">Contact Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -242,7 +250,7 @@ export default function Register() {
           </div>
         </section>
 
-        {/* 4. Account Details */}
+        {/* 4. Account Details section */}
         <section>
           <h2 className="text-2xl font-semibold text-sky-900 bg-gray-200 p-3 rounded-md mb-4">Account Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -306,7 +314,7 @@ export default function Register() {
           </div>
         </section>
 
-        {/* 5. Captcha & Submit */}
+        {/* 5. Captcha & Submit part */}
         <section className="flex gap-4 items-center justify-center">
           <div className="flex items-center justify-end mt-7 mr-10 space-x-4">
             <div className="bg-gray-200 px-4 py-2 rounded text-xl font-mono tracking-widest cursor-default select-none">
@@ -347,6 +355,7 @@ export default function Register() {
 }
 
 
+//This is a custom made input component for this page
 function Input({
   label,
   name,
@@ -383,6 +392,8 @@ function Input({
   )
 }
 
+
+//This is a custom made select component for this page
 function Select({ label, name, value, onChange, options, required = false }) {
   return (
     <div className="flex flex-col">

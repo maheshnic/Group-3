@@ -28,7 +28,7 @@ export default function ContactUs() {
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {/* Left: Office Info */}
+        {/* Office info section on the left side */}
         <div className="bg-white rounded-lg p-8 shadow border border-gray-200">
           <h2 className="text-2xl font-semibold text-sky-900 mb-4">Office Contact Information</h2>
           <ul className="space-y-6 text-gray-700 text-base">
@@ -69,11 +69,11 @@ export default function ContactUs() {
           </ul>
         </div>
 
-        {/* Right: Contact Form */}
+        {/* Contact Form on the right side */}
         <div className="bg-white rounded-lg p-8 shadow border border-gray-200">
           <h2 className="text-2xl font-semibold text-sky-900 mb-4">Send Us a Message</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name */}
+            {/* Name part */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">
                 Full Name
@@ -90,7 +90,7 @@ export default function ContactUs() {
               />
             </div>
 
-            {/* Email */}
+            {/* Email part */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
                 Email Address
@@ -107,7 +107,7 @@ export default function ContactUs() {
               />
             </div>
 
-            {/* Message */}
+            {/* Message part */}
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-1">
                 Your Message
@@ -125,7 +125,7 @@ export default function ContactUs() {
               <p className="text-xs text-gray-500 mt-1 text-right">{form.message.length}/500</p>
             </div>
 
-            {/* Submit */}
+            {/* Submit part */}
             <button
               type="submit"
               className="w-full bg-sky-950 text-white text-lg cursor-pointer font-semibold py-3 rounded-lg hover:bg-sky-900 transition"

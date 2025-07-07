@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { FaLinkedin, FaInstagram, FaFacebook, FaTwitter, FaYoutube } from 'react-icons/fa'
 
+//This defines the navigation links
 const links = [
     {to: '/' , label: 'Home'},
     {to: '/about', label: 'About Us'},
@@ -27,8 +28,12 @@ export default function Navbar () {
                 </div>
             
 
-                <h1 className="text-6xl font-bold font-serif -ml-6 cursor-default">National Informatics Centre</h1>
+                <h1 className="text-6xl font-bold font-serif -ml-6 cursor-default">
+                    National Informatics Centre
+                </h1>
             </div>
+
+            {/* Social Media Icons */}
             <div className="flex h-24 items-center min-w-1/3 space-x-8 justify-end pr-10 ">
                 <a className="bg-black text-white rounded-md p-0.5 text-3xl cursor-pointer hover:text-blue-800 hover:bg-white hover:scale-125 ease-in-out duration-200"
                     href='https://www.linkedin.com'
@@ -70,7 +75,7 @@ export default function Navbar () {
         <nav className="bg-blue-950 text-white flex justify-center items-center px-6 h-16">
 
 
-            {/*Links*/}
+            {/* Links for the different pages */}
             <div className="flex">
                 {links.map(({ to, label }) => (
                     <NavLink

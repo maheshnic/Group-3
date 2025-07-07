@@ -52,7 +52,7 @@ export default function Login() {
   //This function is for simulating OTP generation
   const handleSendOtp = () => {
     if (!mobile.match(/^\d{10}$/)) {
-      alert('Enter valid 10‑digit mobile')
+      alert('Enter valid 10-digit mobile')
       return
     }
     const code = ('' + Math.floor(100000 + Math.random() * 900000))
@@ -74,6 +74,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex">
+      {/* Left side panel */}
       <div className="w-2/3 bg-gradient-to-t from-blue-950 via-sky-800 to-blue-950 flex flex-col items-center justify-center text-center p-8">
         <h1 className="drop-shadow-2xl font-bold font-serif text-white text-8xl mb-4">
           Welcome
@@ -83,6 +84,7 @@ export default function Login() {
         </p>
       </div>
 
+      {/* Right side login panel */}
       <div className="w-1/2 bg-gradient-to-tr from-slate-400 via-sky-50 to-slate-400 flex flex-col items-center justify-center relative p-8">
         
         <div className="absolute top-4 left-4">

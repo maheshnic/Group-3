@@ -1,5 +1,7 @@
 // src/pages/ListCandidate.jsx
 import React, { useState, useEffect } from 'react'
+
+//This imports the methods used for fetching the data from the db
 import * as api from '../api' 
 
 export default function ListCandidate() {
@@ -7,6 +9,7 @@ export default function ListCandidate() {
   const [jobs, setJobs] = useState([])
   const [search, setSearch] = useState('')
 
+  //This one fetches data on initial render
   useEffect(() => {
     Promise.all([
       api.getApplicants(),
@@ -19,6 +22,7 @@ export default function ListCandidate() {
       .catch(err => console.error('Fetch error:', err))
   }, [])
 
+  //This one filters the candidates based on search text
   const filtered = candidates.filter(c =>
     c.name.toLowerCase().includes(search.toLowerCase()) ||
     c.postApplied.toLowerCase().includes(search.toLowerCase()) ||
@@ -32,6 +36,7 @@ export default function ListCandidate() {
         Candidate List
       </h1>
 
+      {/* Search Bar */}
       <input
         type="text"
         value={search}
@@ -40,6 +45,7 @@ export default function ListCandidate() {
         className="w-full mb-4 p-2 border-2 border-gray-300 hover:border-gray-400 transition rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
       />
 
+      {/* The Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300 rounded shadow-sm">
           <thead className="bg-sky-900 text-white">

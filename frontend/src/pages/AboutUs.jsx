@@ -1,6 +1,8 @@
 // src/pages/AboutUs.jsx
 import React, { useState } from 'react'
 
+
+//This is the content for the about us page sections
 const sections = {
   Overview: [
     `The National Informatics Centre (NIC) serves as the digital backbone of India’s government ecosystem. Established in 1976, NIC has grown from a small cadre of computing enthusiasts into a vast network supporting thousands of applications across central and state bodies.`,
@@ -60,7 +62,8 @@ export default function AboutUs() {
 
   return (
     <div className="flex">
-      {/*Sidebar*/}
+
+      {/*Sidebar of the about us page*/}
       <aside className="w-64 pb-10">
         <ul className="mt-6">
           {Object.keys(sections).map(sec => (
@@ -80,7 +83,7 @@ export default function AboutUs() {
         </ul>
       </aside>
 
-      {/* Main Content */}
+      {/* Main Content of the about us page*/}
       <main className="flex-1 p-8 overflow-auto">
         <h1 className="text-3xl font-bold text-blue-950 mb-6">
           {activeSection}

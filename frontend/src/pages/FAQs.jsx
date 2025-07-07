@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaQuestionCircle, FaSearch } from 'react-icons/fa';
 
+//Content for the FAQ page
 const topics = [{
     title: 'General Questions',
     faqs: [
@@ -51,6 +52,7 @@ export default function FAQs() {
   const [search, setSearch] = useState('');
   const [expanded, setExpanded] = useState({});
 
+  //Used for toggling the expansion of a section
   const toggleExpand = (index) => {
     setExpanded((prev) => ({
       ...prev,
@@ -60,8 +62,11 @@ export default function FAQs() {
 
   return (
     <div className="max-w-7xl mx-auto bg-gray-100 px-5 py-4 rounded-xl">
-      <h1 className="text-4xl text-sky-900 font-bold text-center mb-6">Frequently Asked Questions</h1>
+      <h1 className="text-4xl text-sky-900 font-bold text-center mb-6">
+        Frequently Asked Questions
+      </h1>
 
+      {/*This is the Search bar */}
       <div className="flex items-center border border-gray-300 rounded-md overflow-hidden mb-5 bg-white shadow-sm">
         <FaSearch className="text-gray-500 ml-3 w-5 h-5" />
         <input
@@ -73,6 +78,7 @@ export default function FAQs() {
         />
       </div>
 
+      {/* This is the main section of the faq page */}
       {topics.map((topic, index) => {
         const filteredFaqs = topic.faqs.filter(f =>
           f.q.toLowerCase().includes(search.toLowerCase())
@@ -84,7 +90,9 @@ export default function FAQs() {
 
         return (
           <div key={index} className="bg-white border-l-4 border-blue-400 rounded shadow-sm p-5 mb-5">
-            <h2 className="text-2xl p-2 text-sky-900 bg-slate-100 rounded font-semibold mb-3">{topic.title}</h2>
+            <h2 className="text-2xl p-2 text-sky-900 bg-slate-100 rounded font-semibold mb-3">
+              {topic.title}
+            </h2>
             <div className="space-y-3 max-h-[320px] overflow-auto pr-1">
               {visibleFaqs.map((faq, i) => (
                 <div key={i} className="bg-gray-50 p-4 rounded border border-blue-100 flex items-start gap-3">

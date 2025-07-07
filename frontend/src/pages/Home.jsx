@@ -1,13 +1,17 @@
 // src/pages/Home.jsx
 import React, { useState, useEffect, useRef } from 'react'
+
+//This css file import is for the scrolling animation of the notification section
 import './HomeScroll.css'
 
+//The following is for the images displayed on the home page
 const carouselImages = [
   '/images/home1.jpg',
   '/images/home2.png',
   '/images/home3.jpg',
 ]
 
+//Content for the notification section
 const whatsNew = [
   { text: 'NIC releases new guidelines', href: '#' },
   { text: 'Scheduled maintenance on June 30', href: '#' },
@@ -35,7 +39,7 @@ export default function Home() {
   const [idx, setIdx] = useState(0)
   const slideInterval = useRef()
 
-  
+  //The following is for changing the images
   useEffect(() => {
     slideInterval.current = setInterval(() => {
       setIdx(i => (i + 1) % carouselImages.length)
@@ -56,9 +60,13 @@ export default function Home() {
 
   return (
     <div className="space-y-12">
-      <h1 className="text-6xl font-bold text-sky-950">Welcome to the Website</h1>
+
+      <h1 className="text-6xl font-bold text-sky-950">
+        Welcome to the Website
+      </h1>
       <div className="flex space-x-10">
-        {/* —— Carousel —— */}
+
+        {/* Carousel */}
         <div className="relative overflow-hidden rounded-lg shadow-lg w-3/4">
           <img
             src={carouselImages[idx]}
@@ -75,7 +83,7 @@ export default function Home() {
           >›</button>
         </div>
 
-        {/* —— What's New —— */}
+        {/* What's New section */}
         <div className="mt-6 md:mt-0 w-full md:w-1/4">
           <div className="bg-sky-900 py-2 font-semibold pl-3 mb-3 rounded-lg">
             <h2 className="text-3xl text-white">What’s New</h2>
@@ -92,7 +100,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* —— Company Description —— */}
+      {/* Short Description of the company */}
       <section className="prose max-w-full">
         <h2 className="text-2xl font-semibold">About NIC</h2>
         <p>

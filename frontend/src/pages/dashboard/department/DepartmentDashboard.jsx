@@ -1,3 +1,6 @@
+
+//This file used for laying out the sidebar and pages of the department part
+
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../../../components/Sidebar'
